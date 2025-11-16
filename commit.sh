@@ -1,14 +1,34 @@
 #!/bin/bash
-echo "adding files to the commit..." 
-git add . 
 
-read -p "add a commit message for this commit... ( enter for default \"update\")" COMMIT_MESSAGE 
+# Colors
+GREEN="\e[32m"
+CYAN="\e[36m"
+YELLOW="\e[33m"
+RED="\e[31m"
+RESET="\e[0m"
+
+echo -e "${CYAN}\nAdding files to the commit...${RESET}"
+git add .
+
+echo
+read -p "Add a commit message (ENTER = \"update\"): " COMMIT_MESSAGE
 COMMIT_MESSAGE=${COMMIT_MESSAGE:-update}
 
-echo "initiating commit: \"${COMMIT_MESSAGE}\" ..."
-git commit -m "$COMMIT_MESSAGE" 
+echo -e "${YELLOW}\nInitiating commit: \"${COMMIT_MESSAGE}\"...${RESET}"
+git commit -m "$COMMIT_MESSAGE"
 
-echo "commit succesfull! Now lets Push to main..." 
+if [ $? -ne 0 ]; then
+    echo -e "${RED}\nCommit failed!${RESET}"
+    exit 1
+fi
 
+echo -e "${CYAN}\nCommit successful! Now pushing to main...${RESET}"
 git push
-echo "commit complete! have a nice day!"
+
+if [ $? -ne 0 ]; then
+    echo -e "${RED}\nPush failed!${RESET}"
+    exit 1
+fi
+
+echo -e "${GREEN}\n✔ Commit & push complete! Have a nice day!${RESET}\n"
+
