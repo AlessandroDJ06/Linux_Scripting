@@ -53,7 +53,7 @@ fi
 
 if [ "$operator" = "+" ]; then
         oplossing=$(( getal_1 + getal_2))
-elif [ "$opeartor" = "-" ]; then
+elif [ "$operartor" = "-" ]; then
         oplossing=$((getal_1 - getal_2))
 elif [ "$operator" = "*" ]; then
         oplossing=$((getal_1 * getal_2))
@@ -62,7 +62,7 @@ elif [ "$operator" = "/" ]; then
                 echo "je kan niet delen door 0!"
                 exit 1
         else
-                oplossing=$((getal_1 / getal_2|bc -l))
+                oplossing=$(echo "$getal_1 / $getal_2"|bc -l)
         fi
 else
 	echo "ongeldige opp"
